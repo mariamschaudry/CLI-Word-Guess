@@ -50,4 +50,6 @@ The completed game should meet the following criteria:
 * Remember to include a `package.json` file containing your project dependencies in your Github repo!
 
 - - -
+## Copyright
 
+Coding Boot Camp (C) 2018. All Rights Reserved.

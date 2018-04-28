@@ -1,10 +1,11 @@
 {
-  "name": "CLI-Word-Guess",
+  "name": "cli-word-guess",
   "version": "1.0.0",
   "description": "Creating a Word Guess command-line game using constructor functions.",
   "main": "index.js",
   "dependencies": {
     "inquirer": "^5.2.0",
+    "npm": "^6.0.0",
     "prompt": "^1.0.0"
   },
   "devDependencies": {},

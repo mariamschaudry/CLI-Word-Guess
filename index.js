@@ -4,13 +4,13 @@
 
 //   * Prompts the user for each guess and keeps track of the user's remaining guesses
 
+var Game = require("./word.js");
+// var Word = require("./word.js");
 var inquirer = require("inquirer");
+var clear = require('clear');
+var chalk = require('chalk'); 
 
-const wordBank = ["mascara", "shoe", "bread", "plastic", "juice", "kleenex", "pledge", "candle", "neuroscience", "religion", "instrument", "fox", "thoughts", "imagination", "zebra"]; 
-
-// var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-
-var gamePlay; 
+var currentGame; 
 var player; 
 
 function Player () {
@@ -18,34 +18,104 @@ function Player () {
     this.wins = 0; 
     this.losses = 0; 
     this.gameCount = 0;
-};
+}
 
-var createCurrentPlayer = function () {
+// Creating a player constructor // 
+var createPlayer = function () {
     player = new Player(); 
     startGame (); 
 };
 
+var createGame = function () {
+    // Create a new game using the current word
+    currentGame = new Game();
+    // Ask the user to guess letters for the current word
+    startPlayerGuess();
+};
+
+
 // Initializing the inquierer package and asking questions //
 var startPlayerGuess = function () {
     inquirer.prompt([
-       { 
-        name: "guess",
-        message: "Please guess a letter by stroking a letter on your keyboard: ",
-       } 
-    ]).then(function(answers) {
-        console.log("You guessed: " + answers.guess);
-        if (gamePlay.status === "continue") {
-            startPlayerGuess()
+        {
+            name: "guess",
+            message: "Please guess a letter by striking any key on your keyboard ",
         }
-        else if (gamePlay.status === "win") {
-            player.wins++; 
-            player.gameCount++; 
-            console.log("Player Status" + 
-                "\n Number of Wins: " + player.wins +
-                "\n Number of Losses: " + player.losses +
-                "\n");
-            startGame(); 
+
+    ]).then(function (answers) {
+        console.log("You guess: " + answers.guess);
+        // Check if player guess is correct and see if they need to keep guessing
+        currentGame.correctGuess(answers.guess);
+        // If player can keep guessing, call prompt for player guess again.
+        if (currentGame.status === 'continue') {
+            promptPlayerGuess()
         }
-    }
-    )}
+        else if (currentGame.status === 'win') {
+            currentPlayer.wins++;
+            currentPlayer.gameCount++;
+            console.log(" Player Status" +
+                "\n Number of Wins: " + currentPlayer.wins +
+                "\n Number of Losses: " + currentPlayer.losses
+                + "\n");
+            startGame();
+        }
+        else if (currentGame.status === 'gameOver') {
+            currentPlayer.gameCount++;
+            currentPlayer.losses++;
+            console.log(" Player Status" +
+                "\n Number of Wins: " + currentPlayer.wins +
+                "\n Number of Losses: " + currentPlayer.losses
+                + "\n");
+            startGame();
+        }
+    });
+};
+
+var startGame  = function () {
+    inquirer.prompt([
+        {
+            type: 'confirm',
+            name: "play",
+            message: "Would you like to play a fun game?"
+        }
+    ]).then(function (answers) {
+
+        // console.log(answers);
+        if (answers.play === true) {
+            createGame();
+        }
+        else {
+            console.log("\nAww, it's okay. Maybe next time....")
+        }
+    });
+};
+
+clear();
+
+console.log('\n');
+createPlayer();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

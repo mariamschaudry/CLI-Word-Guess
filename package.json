@@ -4,6 +4,8 @@
   "description": "Creating a Word Guess command-line game using constructor functions.",
   "main": "index.js",
   "dependencies": {
+    "chalk": "^2.4.1",
+    "clear": "^0.1.0",
     "inquirer": "^5.2.0",
     "npm": "^6.0.0",
     "prompt": "^1.0.0"

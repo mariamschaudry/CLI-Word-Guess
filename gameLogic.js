@@ -43,6 +43,7 @@ Game.prototype.isRight = function(guess) {
 
 // Check to see if user guessed the whole word //
 
+function checkWord() {
 this.currentWord.checkWord(); 
 if ((this.guessesLeft > 0) && (this.currentWord.found === false)) {
     console.log(this.currentWord.showWord());
@@ -55,6 +56,7 @@ if ((this.guessesLeft > 0) && (this.currentWord.found === false)) {
 } else {
     console.log("\n You won the game! The correct word was: \n" + chalk.greenBright.inverse(this.currentWord.wordValue) + "\n");
     this.status = "win"; 
+    }      
 };
 
 

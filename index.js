@@ -45,7 +45,8 @@ var startPlayerGuess = function () {
     ]).then(function (answers) {
         console.log("You guess: " + answers.guess);
         // Check if player guess is correct and see if they need to keep guessing
-        currentGame.correctGuess(answers.guess);
+         function correctGuess () {
+        // currentGame.correctGuess(answers.guess);
         // If player can keep guessing, call prompt for player guess again.
         if (currentGame.status === 'continue') {
             promptPlayerGuess()
@@ -68,6 +69,7 @@ var startPlayerGuess = function () {
                 + "\n");
             startGame();
         }
+        }
     });
 };
 
@@ -80,7 +82,6 @@ var startGame  = function () {
         }
     ]).then(function (answers) {
 
-        // console.log(answers);
         if (answers.play === true) {
             createGame();
         }
@@ -90,10 +91,11 @@ var startGame  = function () {
     });
 };
 
-clear();
 
+clear();
 console.log('\n');
 createPlayer();
+
 
 
 
